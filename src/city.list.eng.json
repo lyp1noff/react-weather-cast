@@ -46,11 +46,65 @@
   },
   {
     "id": 709930,
-    "name": "Dnipropetrovsk",
+    "name": "Dnipro",
     "country": "UA",
     "coord": {
       "lon": 34.98333,
       "lat": 48.450001
+    }
+  },
+  {
+    "id": 703845,
+    "name": "Kryvyy Rih",
+    "country": "UA",
+    "coord": {
+      "lon": 33.349998,
+      "lat": 47.916668
+    }
+  },
+  {
+    "id": 700569,
+    "name": "Mykolayiv",
+    "country": "UA",
+    "coord": {
+      "lon": 31.9974,
+      "lat": 46.965912
+    }
+  },
+  {
+    "id": 698782,
+    "name": "Obukhiv",
+    "country": "UA",
+    "coord": {
+      "lon": 30.622721,
+      "lat": 50.10997
+    }
+  },
+{
+    "id": 710374,
+    "name": "Chuhuyiv",
+    "country": "UA",
+    "coord": {
+      "lon": 36.68803,
+      "lat": 49.83588
+    }
+  },
+{
+    "id": 711515,
+    "name": "Boyarka",
+    "country": "UA",
+    "coord": {
+      "lon": 30.297279,
+      "lat": 50.319099
+    }
+  },
+{
+    "id": 695594,
+    "name": "Rivne",
+    "country": "UA",
+    "coord": {
+      "lon": 26.22743,
+      "lat": 50.623081
     }
   },
   {

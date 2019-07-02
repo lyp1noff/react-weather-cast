@@ -11,6 +11,7 @@ class WeatherDisplay extends React.Component {
       weatherData: null
     };
   }
+
   componentDidMount() {
     try {
       const id = this.props.place.id;
@@ -26,13 +27,14 @@ class WeatherDisplay extends React.Component {
       })
     }
   }
+
   render() {
     const weatherData = this.state.weatherData;
     if (!weatherData) return <Spinner animation="border" />;
     else if (weatherData === "err") {
       return (
         <div>
-          <h1>Error: Enter right name of the city.</h1>
+          <h1>Error</h1>
         </div>
       );
     }
