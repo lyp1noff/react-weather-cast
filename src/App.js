@@ -1,63 +1,58 @@
 import React from 'react';
 import WeatherDisplay from './WeatherDisplay'
 import './App.css'
-import { Nav, Navbar, Jumbotron, Container, NavDropdown, Form,FormControl } from "react-bootstrap";
-import data_rus from './city.list.rus'
-import data_eng from './city.list.eng'
+import { Nav, Navbar, Jumbotron, Container, Dropdown, DropdownButton, Form, FormControl, InputGroup,
+  Button} from "react-bootstrap";
+import data from './city.list'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.searchButton = this.searchButton.bind(this);
-    this.state = {activePlace: 0, data: data_eng, lang: localStorage.getItem('lang') || data_eng};
+    this.state = {activePlace: 0, lang: localStorage.getItem('lang') || "eng"};
   }
 
   searchButton() {
+    let i = 0;
     let city = this.city.value;
-    for (let i = 0; i < Object.keys(this.state.data).length; i++) {
-      if (this.state.data[i].name.toLowerCase() === city.toLowerCase()) {
-        return(
-          this.setState({
-            activePlace: i
-          })
-        );
+    for (; i < Object.keys(data).length; i++) {
+      if (this.state.lang === "rus") {
+        if (data[i].rus_name.toLowerCase() === city.toLowerCase()) {
+          break
+        }
+      } else {
+        if (data[i].name.toLowerCase() === city.toLowerCase()) {
+          break
+        }
       }
     }
-  }
-
-  componentDidMount() {
-    this.updateLanguage();
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevState.lang !== this.state.lang) {
-      this.updateLanguage();
-    }
-  }
-
-  updateLanguage() {
-    if (this.state.lang === "rus") {
-      this.setState({data: data_rus})
-    } else {
-      this.setState({data: data_eng})
-    }
-  }
-
-  switchLang(lang) {
-    this.setState({lang: lang});
-  }
-
-  renderButton(index) {
-    return (
-      <Nav.Link onClick={() => (this.setState({activePlace: index}))}>
-        {this.state.data[index].name}
-      </Nav.Link>
+    return(
+      this.setState({
+        activePlace: i
+      })
     );
+  }
+  
+  renderButton(index) {
+    if (this.state.lang === "rus") {
+      return (
+        <Nav.Link onClick={() => (this.setState({activePlace: index}))}>
+          {data[index].rus_name}
+        </Nav.Link>
+      );
+    } else {
+      return (
+        <Nav.Link onClick={() => (this.setState({activePlace: index}))}>
+          {data[index].name}
+        </Nav.Link>
+      );
+    }
   }
 
   render() {
-    localStorage.setItem('lang', this.state.lang);
-    console.log(this.state.data);
+    if (localStorage.getItem('lang') !== this.state.lang) {
+      localStorage.setItem('lang', this.state.lang);
+    }
     const activePlace = this.state.activePlace;
     return(
       <div>
@@ -73,27 +68,37 @@ class App extends React.Component {
               {this.renderButton(5)}
             </Nav>
             <Form inline>
-              <NavDropdown title="Language" id="collasible-nav-dropdown">
-                <NavDropdown.Item onClick={() => (this.switchLang("eng"))}>English</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => (this.switchLang("rus"))}>Russian</NavDropdown.Item>
-              </NavDropdown>
-              <FormControl
-                placeholder="Search"
-                type="input"
-                ref={(ref) => {this.city = ref}}
-                onKeyPress={event => {
-                  if (event.key === "Enter") {
-                    this.searchButton();
-                  }
-                }}
-              />
+              <InputGroup>
+                <FormControl
+                  placeholder="Search" // Должно менять значение на "Поиск" в зависимости от this.state.lang
+                  aria-label="Search"
+                  aria-describedby="basic-addon2"
+                  ref={(ref) => {this.city = ref}}
+                />
+                <InputGroup.Append>
+                  <Button onClick={this.searchButton} variant="outline-secondary">Search</Button>
+                </InputGroup.Append>
+              </InputGroup>
+              <DropdownButton
+                as={InputGroup.Append}
+                variant="outline-secondary"
+                title="Language" // Должно менять значение на "Язык" в зависимости от this.state.lang
+                id="input-group-dropdown-1"
+              >
+                <Dropdown.Item onClick={() => (this.setState({lang: "eng"}))}>
+                  English
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => (this.setState({lang: "rus"}))}>
+                  Russian
+                </Dropdown.Item>
+              </DropdownButton>
             </Form>
           </Navbar.Collapse>
         </Navbar>
         <Container className={"mt-auto"}>
           <Jumbotron>
             <Container>
-              <WeatherDisplay key={activePlace} place={this.state.data[activePlace]} lang={this.state.lang}/>
+              <WeatherDisplay key={activePlace} place={data[activePlace]} lang={this.state.lang}/>
             </Container>
           </Jumbotron>
         </Container>

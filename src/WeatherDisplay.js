@@ -43,7 +43,7 @@ class WeatherDisplay extends React.Component {
       return (
         <div>
           <h1>
-            {weatherData.weather[0].main} в {this.props.place.name}
+            {weatherData.weather[0].main} в {this.props.place.rus_name}
             <img src={iconUrl} alt={weatherData.description} />
           </h1>
           <p>Текущая температура: {weatherData.main.temp}°</p>
