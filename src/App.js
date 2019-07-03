@@ -4,6 +4,7 @@ import './App.css'
 import { Nav, Navbar, Jumbotron, Container, Dropdown, DropdownButton, Form, FormControl, InputGroup,
   Button} from "react-bootstrap";
 import data from './city.list'
+import localization from './localization'
 
 class App extends React.Component {
   constructor(props) {
@@ -70,19 +71,21 @@ class App extends React.Component {
             <Form inline>
               <InputGroup>
                 <FormControl
-                  placeholder="Search" // Должно менять значение на "Поиск" в зависимости от this.state.lang
+                  placeholder={localization[0].search[this.state.lang]}
                   aria-label="Search"
                   aria-describedby="basic-addon2"
                   ref={(ref) => {this.city = ref}}
                 />
                 <InputGroup.Append>
-                  <Button onClick={this.searchButton} variant="outline-secondary">Search</Button>
+                  <Button onClick={this.searchButton} variant="outline-secondary">
+                    {localization[0].search[this.state.lang]}
+                  </Button>
                 </InputGroup.Append>
               </InputGroup>
               <DropdownButton
                 as={InputGroup.Append}
                 variant="outline-secondary"
-                title="Language" // Должно менять значение на "Язык" в зависимости от this.state.lang
+                title={localization[0].language[this.state.lang]}
                 id="input-group-dropdown-1"
               >
                 <Dropdown.Item onClick={() => (this.setState({lang: "eng"}))}>

@@ -3,6 +3,7 @@ import './WeatherDisplay.css'
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.css";
 import Spinner from "react-bootstrap/Spinner";
+import localization from './localization'
 
 class WeatherDisplay extends React.Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class WeatherDisplay extends React.Component {
     else if (weatherData === "err") {
       return (
         <div>
-          <h1>Error</h1>
+          <h1>{localization[0].error[this.props.lang]}</h1>
         </div>
       );
     }
