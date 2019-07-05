@@ -11,6 +11,7 @@ class WeatherDisplay extends React.Component {
       weatherData: null
     };
   }
+
   componentDidMount() {
     try {
       const id = this.props.place.id;
@@ -19,20 +20,21 @@ class WeatherDisplay extends React.Component {
         .then(response => response.data)
         .then((data) => {
           this.setState({ weatherData: data });
-        })
+        });
     } catch (err) {
       this.setState({
         weatherData: "err"
       })
     }
   }
+
   render() {
     const weatherData = this.state.weatherData;
     if (!weatherData) return <Spinner animation="border" />;
     else if (weatherData === "err") {
       return (
         <div>
-          <h1>Error: Enter right name of the city.</h1>
+          <h1>Can not found city: {this.props.activePlace}</h1>
         </div>
       );
     }
