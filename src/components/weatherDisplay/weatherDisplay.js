@@ -1,5 +1,5 @@
 import React from 'react';
-import './WeatherDisplay.css'
+import './weatherDisplay.css'
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.css";
 import Spinner from "react-bootstrap/Spinner";
@@ -15,11 +15,11 @@ class WeatherDisplay extends React.Component {
   componentDidMount() {
     try {
       const id = this.props.place.id;
-      axios.get("http://api.openweathermap.org/data/2.5/weather?id=" + id +
-        "&appid=5cec0145e4c7a8df41c2a081f2b2c509&units=Metric")
-        .then(response => response.data)
-        .then((data) => {
-          this.setState({ weatherData: data });
+      axios.defaults.baseURL = 'http://api.openweathermap.org/';
+      axios.get("data/2.5/weather",
+        {params: {id, appid: "5cec0145e4c7a8df41c2a081f2b2c509", units: "Metric", lang: "ru"}})
+        .then(response => {
+          this.setState({ weatherData: response.data });
         });
     } catch (err) {
       this.setState({
