@@ -8,11 +8,11 @@ import data from './city.list'
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.searchButton = this.searchButton.bind(this);
-    this.state = {activePlace: 0, lang: localStorage.getItem('lang') || "eng"};
+    this.search = this.search.bind(this);
+    this.state = {activePlace: 0}
   }
 
-  searchButton() {
+  search() {
     let i = 0;
     let city = this.city.value;
     for (; i < Object.keys(data).length; i++) {
@@ -20,6 +20,12 @@ class App extends React.Component {
         return(
           this.setState({
             activePlace: i
+          })
+        );
+      } else if (i === Object.keys(data).length - 1) {
+        return(
+          this.setState({
+            activePlace: 'err'
           })
         );
       }
@@ -35,9 +41,6 @@ class App extends React.Component {
   }
 
   render() {
-    if (localStorage.getItem('lang') !== this.state.lang) {
-      localStorage.setItem('lang', this.state.lang);
-    }
     const activePlace = this.state.activePlace;
     return(
       <div>
@@ -50,18 +53,17 @@ class App extends React.Component {
               {this.renderButton(1)}
               {this.renderButton(2)}
               {this.renderButton(3)}
-              {this.renderButton(5)}
+              {this.renderButton(4)}
             </Nav>
             <Form inline>
               <InputGroup>
                 <FormControl
                   placeholder="Search"
                   aria-label="Search"
-                  aria-describedby="basic-addon2"
                   ref={(ref) => {this.city = ref}}
                 />
                 <InputGroup.Append>
-                  <Button onClick={this.searchButton} variant="outline-secondary">
+                  <Button onClick={this.search} variant="outline-secondary">
                     Search
                   </Button>
                 </InputGroup.Append>
@@ -72,7 +74,7 @@ class App extends React.Component {
         <Container className={"mt-auto"}>
           <Jumbotron>
             <Container>
-              <WeatherDisplay key={activePlace} place={data[activePlace]} lang={this.state.lang}/>
+              <WeatherDisplay key={activePlace} place={data[activePlace]}/>
             </Container>
           </Jumbotron>
         </Container>
