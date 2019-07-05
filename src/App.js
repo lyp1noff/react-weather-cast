@@ -25,7 +25,7 @@ class App extends React.Component {
       } else if (i === Object.keys(data).length - 1) {
         return(
           this.setState({
-            activePlace: 'err'
+            activePlace: city
           })
         );
       }
@@ -74,7 +74,7 @@ class App extends React.Component {
         <Container className={"mt-auto"}>
           <Jumbotron>
             <Container>
-              <WeatherDisplay key={activePlace} place={data[activePlace]}/>
+              <WeatherDisplay key={activePlace} place={data[activePlace]} activePlace={activePlace}/>
             </Container>
           </Jumbotron>
         </Container>

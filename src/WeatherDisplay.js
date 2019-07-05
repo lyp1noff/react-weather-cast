@@ -16,7 +16,7 @@ class WeatherDisplay extends React.Component {
     try {
       const id = this.props.place.id;
       axios.get("http://api.openweathermap.org/data/2.5/weather?id=" + id +
-        "&appid=5cec0145e4c7a8df41c2a081f2b2c509&units=Metric&lang=ru")
+        "&appid=5cec0145e4c7a8df41c2a081f2b2c509&units=Metric")
         .then(response => response.data)
         .then((data) => {
           this.setState({ weatherData: data });
@@ -34,7 +34,7 @@ class WeatherDisplay extends React.Component {
     else if (weatherData === "err") {
       return (
         <div>
-          <h1>Can not found this city</h1>
+          <h1>Can not found city: {this.props.activePlace}</h1>
         </div>
       );
     }
