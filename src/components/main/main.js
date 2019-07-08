@@ -8,22 +8,33 @@ import CityButton from '../ui/cityButton'
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {activePlace: 0};
+    this.state = {activePlace: localStorage.getItem('activePlace') || 0}
+  }
+
+  componentDidMount() {
+    if (isNaN(this.state.activePlace)) {
+      this.setState({activePlace: 0})
+    }
   }
 
   search() {
-    let city = this.city.value;
-    const index = data.findIndex(function(item){
-      return item.name.toLowerCase() === city.toLowerCase().replace(/(^\s*)|(\s*)$/g, '')
-    });
-    if (index === -1) {
-      return this.setState({activePlace: city})
-    } else {
-      return this.setState({activePlace: index})
+    const city = this.city.value;
+    if (city !== "") {
+      const index = data.findIndex(function (item) {
+        return item.name.toLowerCase() === city.toLowerCase().replace(/(^\s*)|(\s*)$/g, '')
+      });
+      if (index === -1) {
+        return this.setState({activePlace: city})
+      } else {
+        return this.setState({activePlace: index})
+      }
     }
   }
 
   render() {
+    if (localStorage.getItem('activePlace') !== this.state.activePlace) {
+      localStorage.setItem('activePlace', this.state.activePlace);
+    }
     const activePlace = this.state.activePlace;
     const elements = [0, 1, 2, 3, 4];
     const buttons = [];
@@ -43,6 +54,7 @@ class Main extends React.Component {
             <Form inline>
               <InputGroup>
                 <FormControl
+                  onSubmit={() => (this.search())}
                   placeholder="Поиск"
                   aria-label="Search"
                   ref={(ref) => {this.city = ref}}

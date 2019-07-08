@@ -41,7 +41,7 @@ class WeatherDisplay extends React.Component {
     const iconUrl = "http://openweathermap.org/img/w/" + weatherData.weather[0].icon + ".png";
     return (
       <div>
-        <p className="weatherData">
+        <p className="description">
           {this.props.place.name} - {weatherData.weather[0].description}
           <img src={iconUrl} alt={weatherData.description} />
         </p>
