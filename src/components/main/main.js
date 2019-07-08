@@ -36,9 +36,9 @@ class Main extends React.Component {
       localStorage.setItem('activePlace', this.state.activePlace);
     }
     const activePlace = this.state.activePlace;
-    const elements = [0, 1, 2, 3, 4];
+    const places = [0, 1, 2, 3, 4];
     const buttons = [];
-    for (const [index, value] of elements.entries()) {
+    for (const [index, value] of places.entries()) {
       buttons.push(<CityButton key={value} onClick={() => (this.setState({activePlace: index}))}
                                title={data[value].name}/>)
     }
