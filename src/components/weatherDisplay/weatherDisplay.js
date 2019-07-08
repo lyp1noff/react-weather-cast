@@ -1,5 +1,5 @@
 import React from 'react';
-import './WeatherDisplay.css'
+import './weatherDisplay.css'
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.css";
 import Spinner from "react-bootstrap/Spinner";
@@ -15,11 +15,11 @@ class WeatherDisplay extends React.Component {
   componentDidMount() {
     try {
       const id = this.props.place.id;
-      axios.get("http://api.openweathermap.org/data/2.5/weather?id=" + id +
-        "&appid=5cec0145e4c7a8df41c2a081f2b2c509&units=Metric")
-        .then(response => response.data)
-        .then((data) => {
-          this.setState({ weatherData: data });
+      axios.defaults.baseURL = 'http://api.openweathermap.org/';
+      axios.get("data/2.5/weather",
+        {params: {id, appid: "5cec0145e4c7a8df41c2a081f2b2c509", units: "Metric", lang: "ru"}})
+        .then(response => {
+          this.setState({ weatherData: response.data });
         });
     } catch (err) {
       this.setState({
@@ -34,21 +34,21 @@ class WeatherDisplay extends React.Component {
     else if (weatherData === "err") {
       return (
         <div>
-          <h1>Can not found city: {this.props.activePlace}</h1>
+          <h1>Город {this.props.activePlace} не найден</h1>
         </div>
       );
     }
     const iconUrl = "http://openweathermap.org/img/w/" + weatherData.weather[0].icon + ".png";
     return (
       <div>
-        <h1>
-          {weatherData.weather[0].main} in {this.props.place.name}
+        <p className="weatherData">
+          {this.props.place.name} - {weatherData.weather[0].description}
           <img src={iconUrl} alt={weatherData.description} />
-        </h1>
-        <p>Current: {weatherData.main.temp}°</p>
-        <p>High: {weatherData.main.temp_max}°</p>
-        <p>Low: {weatherData.main.temp_min}°</p>
-        <p>Wind Speed: {weatherData.wind.speed} meter/sec</p>
+        </p>
+        <p>Текущая температура: {weatherData.main.temp}°С</p>
+        <p>Максимальная: {weatherData.main.temp_max}°С</p>
+        <p>Минимальная: {weatherData.main.temp_min}°С</p>
+        <p>Скорость ветра: {weatherData.wind.speed} м/с</p>
       </div>
     );
   }
