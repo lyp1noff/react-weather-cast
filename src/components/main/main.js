@@ -2,7 +2,7 @@ import React from 'react';
 import WeatherDisplay from '../weatherDisplay/weatherDisplay'
 import './main.css'
 import { Nav, Navbar, Jumbotron, Container, Form, FormControl, InputGroup, Button} from "react-bootstrap"
-import data from '../../assets/json/city.list'
+import data from '../../assets/json/ru.city.list'
 import CityButton from '../ui/cityButton'
 
 class Main extends React.Component {
@@ -12,50 +12,29 @@ class Main extends React.Component {
   }
 
   search() {
-    // let i = 0;
     let city = this.city.value;
-    const find = Object.keys(data).toLowerCase().findIndex(function(item){
-      return item.name === city
+    const index = data.findIndex(function(item){
+      return item.name.toLowerCase() === city.toLowerCase().replace(/(^\s*)|(\s*)$/g, '')
     });
-    console.log(find);
-    return this.setState({activePlace: find})
-
-
-
-
-
-    // for (; i < Object.keys(data).length; i++) {
-    //   if (data[i].name.toLowerCase() === city.toLowerCase()) {
-    //     return(
-    //       this.setState({
-    //         activePlace: i
-    //       })
-    //     );
-    //   } else if (i === Object.keys(data).length - 1) {
-    //     return(
-    //       this.setState({
-    //         activePlace: city
-    //       })
-    //     );
-    //   }
-    // }
-
-
-
+    if (index === -1) {
+      return this.setState({activePlace: city})
+    } else {
+      return this.setState({activePlace: index})
+    }
   }
 
   render() {
-    console.log(data);
     const activePlace = this.state.activePlace;
     const elements = [0, 1, 2, 3, 4];
     const buttons = [];
     for (const [index, value] of elements.entries()) {
-      buttons.push(<CityButton key={value} onClick={() => (this.setState({activePlace: index}))} title={data[value].name}/>)
+      buttons.push(<CityButton key={value} onClick={() => (this.setState({activePlace: index}))}
+                               title={data[value].name}/>)
     }
     return(
       <div>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-          <Navbar.Brand href="/">Weather Forecast</Navbar.Brand>
+          <Navbar.Brand href="/">Прогноз погоды</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
@@ -64,13 +43,13 @@ class Main extends React.Component {
             <Form inline>
               <InputGroup>
                 <FormControl
-                  placeholder="Search"
+                  placeholder="Поиск"
                   aria-label="Search"
                   ref={(ref) => {this.city = ref}}
                 />
                 <InputGroup.Append>
-                  <Button onClick={() => (this.search)} variant="outline-secondary">
-                    Search
+                  <Button onClick={() => (this.search())} variant="outline-secondary">
+                    Поиск
                   </Button>
                 </InputGroup.Append>
               </InputGroup>
