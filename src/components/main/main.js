@@ -1,7 +1,6 @@
 import React from 'react';
 import WeatherDisplay from '../weatherDisplay/weatherDisplay'
 import './main.css'
-import "bootstrap/dist/css/bootstrap.css";
 import { Nav, Navbar, Jumbotron, Container, Form, FormControl, InputGroup, Button} from "react-bootstrap"
 import data from '../../assets/json/ru.city.list'
 
