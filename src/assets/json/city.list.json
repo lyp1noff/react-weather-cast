@@ -28,7 +28,6 @@
     "name": "Holubynka"
 },
 {  
-    
     "id": 703363,
     "name": "Laspi"
 },
@@ -59,10 +58,6 @@
 {  
     "id": 703845,
     "name": "Kryvyy Rih"
-},
-{  
-    "id": 703447,
-    "name": "Misto Kyyiv"
 },
 {  
     "id": 703883,
@@ -4421,10 +4416,6 @@
     "name": "Varva"
 },
 {  
-    "id": 689025,
-    "name": "Voronezh"
-},
-{  
     "id": 713634,
     "name": "Aleksandrovka"
 },
@@ -6748,7 +6739,6 @@
     "id": 2950159,
     "name": "Berlin"
 },
-
 {
     "id": 2759794,
     "name": "Amsterdam"
@@ -6756,7 +6746,8 @@
 {
     "id": 6359304,
     "name": "Madrid"
-},{
+},
+{
     "id": 3067695,
     "name": "Praha"
 }
