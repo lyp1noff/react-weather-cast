@@ -1,7 +1,6 @@
 import React from 'react';
 import './weatherDisplay.css'
 import axios from 'axios';
-import "bootstrap/dist/css/bootstrap.css";
 import Spinner from "react-bootstrap/Spinner";
 
 class WeatherDisplay extends React.Component {

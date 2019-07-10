@@ -1,9 +1,9 @@
 import React from 'react';
 import WeatherDisplay from '../weatherDisplay/weatherDisplay'
 import './main.css'
+import "bootstrap/dist/css/bootstrap.css";
 import { Nav, Navbar, Jumbotron, Container, Form, FormControl, InputGroup, Button} from "react-bootstrap"
 import data from '../../assets/json/ru.city.list'
-import CityButton from '../ui/cityButton'
 
 class Main extends React.Component {
   constructor(props) {
@@ -39,8 +39,8 @@ class Main extends React.Component {
     const places = [0, 1, 2, 3, 4];
     const buttons = [];
     for (const [index, value] of places.entries()) {
-      buttons.push(<CityButton key={value} onClick={() => (this.setState({activePlace: index}))}
-                               title={data[value].name}/>)
+      buttons.push(<Nav.Link key={value} onClick={() => (this.setState({activePlace: index}))}
+        >{data[value].name}</Nav.Link>)
     }
     return(
       <div>

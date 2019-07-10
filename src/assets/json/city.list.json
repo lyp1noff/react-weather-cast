@@ -6711,5 +6711,53 @@
 {  
     "id": 696416,
     "name": "Potok"
+},
+{
+    "id": 524901,
+    "name": "Moscow"
+},
+{
+    "id": 498817,
+    "name": "Saint Petersburg"
+},
+{
+    "id": 472757,
+    "name": "Volgograd"
+},
+{
+    "id": 472045,
+    "name": "Voronezh"
+},
+{
+    "id": 501175,
+    "name": "Rostov-na-Donu"
+},
+{
+    "id": 501183,
+    "name": "Rostov"
+},
+{
+    "id": 625144,
+    "name": "Minsk"
+},
+{
+    "id": 6695624,
+    "name": "Warszawa"
+},
+{
+    "id": 2950159,
+    "name": "Berlin"
+},
+
+{
+    "id": 2759794,
+    "name": "Amsterdam"
+},
+{
+    "id": 6359304,
+    "name": "Madrid"
+},{
+    "id": 3067695,
+    "name": "Praha"
 }
 ]
