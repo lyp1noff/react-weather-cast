@@ -20,7 +20,7 @@ class Main extends React.Component {
     const city = this.city.value;
     if (city !== "") {
       const index = data.findIndex(function (item) {
-        return item.name.toLowerCase() === city.toLowerCase().replace(/(^\s*)|(\s*)$/g, '')
+        return item.name.toLowerCase() === city.toLowerCase().trim()
       });
       if (index === -1) {
         return this.setState({activePlace: city})
