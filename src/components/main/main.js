@@ -1,36 +1,49 @@
 import React from 'react';
 import WeatherDisplay from '../weatherDisplay/weatherDisplay'
 import './main.css'
+import { Route, } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
 import { Nav, Navbar, Jumbotron, Container, Form, FormControl, InputGroup, Button} from "react-bootstrap"
-import data from '../../assets/json/ru.city.list'
-import CityButton from '../ui/cityButton'
+import data from '../../assets/json/city.list'
 
 class Main extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {activePlace: 0};
+  search(city) {
+    if (city !== "") {
+      const index = data.findIndex(item => item.name.toLowerCase() === city.toLowerCase().trim());
+      if (index === -1) {
+        return this.props.history.push('/404')
+      } else {
+        return this.props.history.push('/'+data[index].url)
+      }
+    }
   }
 
-  search() {
-    let city = this.city.value;
-    const index = data.findIndex(function(item){
-      return item.name.toLowerCase() === city.toLowerCase().replace(/(^\s*)|(\s*)$/g, '')
-    });
-    if (index === -1) {
-      return this.setState({activePlace: city})
-    } else {
-      return this.setState({activePlace: index})
+  renderRoute() {
+    const route = [];
+    for (const [index] of data.entries()) {
+      route.push(
+        <Route exact path={"/"+data[index].url} key={index} component={() => {
+          return <WeatherDisplay key={index} place={data[index]} activePlace={index}/>}}
+        />
+      )
     }
+    return route
+  }
+
+  static renderButtons() {
+    const places = [0, 1, 2, 3, 4];
+    const buttons = [];
+    for (const [, value] of places.entries()) {
+      buttons.push(
+        <LinkContainer to={"/"+data[value].url} key={value}>
+          <Nav.Link>{data[value].name}</Nav.Link>
+        </LinkContainer>
+      )
+    }
+    return buttons
   }
 
   render() {
-    const activePlace = this.state.activePlace;
-    const elements = [0, 1, 2, 3, 4];
-    const buttons = [];
-    for (const [index, value] of elements.entries()) {
-      buttons.push(<CityButton key={value} onClick={() => (this.setState({activePlace: index}))}
-                               title={data[value].name}/>)
-    }
     return(
       <div>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -38,17 +51,18 @@ class Main extends React.Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              {buttons}
+              {Main.renderButtons()}
             </Nav>
             <Form inline>
               <InputGroup>
                 <FormControl
+                  onSubmit={() => (this.search())}
                   placeholder="Поиск"
                   aria-label="Search"
                   ref={(ref) => {this.city = ref}}
                 />
                 <InputGroup.Append>
-                  <Button onClick={() => (this.search())} variant="outline-secondary">
+                  <Button onClick={() => (this.search(this.city.value))} variant="outline-secondary">
                     Поиск
                   </Button>
                 </InputGroup.Append>
@@ -59,7 +73,13 @@ class Main extends React.Component {
         <Container className={"mt-auto"}>
           <Jumbotron>
             <Container>
-              <WeatherDisplay key={activePlace} place={data[activePlace]} activePlace={activePlace}/>
+              {this.renderRoute()}
+              <Route exact path={"/404"} component={() => {
+                return <h1>Город не найден</h1>}}
+              />
+              <Route exact path={"/"} component={() => {
+                return <h1>Прогноз погоды</h1>}}
+              />
             </Container>
           </Jumbotron>
         </Container>

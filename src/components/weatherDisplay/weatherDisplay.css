@@ -1,8 +1,8 @@
-.weatherData {
+.description {
     font-size: 8vw;
 }
 @media screen and (min-width: 500px) {
-    .weatherData {
+    .description {
         font-size: 2.5rem;
     }
 }
