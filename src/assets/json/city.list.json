@@ -45,10 +45,6 @@
     "url": "krivoy-rog"
   },
   {
-    "id": 703883,
-    "name": "Автономная Республика Крым"
-  },
-  {
     "id": 688532,
     "name": "Ялта",
     "url": "yalta"
@@ -64,54 +60,14 @@
     "url": "donetsk"
   },
   {
-    "id": 696050,
-    "name": "Пуща-Водица",
-    "url": "puscha-voditsa"
-  },
-  {
-    "id": 711999,
-    "name": "Бобровица",
-    "url": "bobrovitsa"
-  },
-  {
-    "id": 696377,
-    "name": "Позняки",
-    "url": "poznyaki"
-  },
-  {
     "id": 712590,
     "name": "Белогородка",
     "url": "belogorodka"
   },
   {
-    "id": 697418,
-    "name": "Петропавловская Борщаговка",
-    "url": "petropavlovskaya-borshchagovka"
-  },
-  {
-    "id": 692014,
-    "name": "Святошино",
-    "url": "svyatoshino"
-  },
-  {
     "id": 711390,
     "name": "Бровары",
     "url": "brovary"
-  },
-  {
-    "id": 688455,
-    "name": "Яремче",
-    "url": "yaremche"
-  },
-  {
-    "id": 698159,
-    "name": "Отрадное",
-    "url": "otradnoe"
-  },
-  {
-    "id": 700182,
-    "name": "Николаевка",
-    "url": "nikolaevka"
   },
   {
     "id": 706372,
@@ -129,24 +85,9 @@
     "url": "alushta"
   },
   {
-    "id": 703168,
-    "name": "Лесная",
-    "url": "lesnaya"
-  },
-  {
     "id": 706524,
     "name": "Керчь",
     "url": "kerch"
-  },
-  {
-    "id": 696945,
-    "name": "Подгородное",
-    "url": "podgorodnoye"
-  },
-  {
-    "id": 712451,
-    "name": "Бердянск",
-    "url": "berdyansk"
   },
   {
     "id": 690548,
@@ -154,39 +95,14 @@
     "url": "uzhgorod"
   },
   {
-    "id": 706950,
-    "name": "Каменец Подольский",
-    "url": "kamenets-podolsky"
-  },
-  {
-    "id": 699718,
-    "name": "Ново-Александровка",
-    "url": "novo-aleksandrovka"
-  },
-  {
     "id": 690777,
     "name": "Украинка",
     "url": "ukrainka"
   },
   {
-    "id": 693342,
-    "name": "Софиевка",
-    "url": "sofiyivka"
-  },
-  {
     "id": 701822,
     "name": "Мариуполь",
     "url": "mariupol"
-  },
-  {
-    "id": 712005,
-    "name": "Бобрица",
-    "url": "bobrytsya"
-  },
-  {
-    "id": 711621,
-    "name": "Боровая",
-    "url": "borovaya"
   },
   {
     "id": 706448,
@@ -219,11 +135,6 @@
     "url": "vyshgorod"
   },
   {
-    "id": 705812,
-    "name": "Кировоградская",
-    "url": "kirovograd"
-  },
-  {
     "id": 710403,
     "name": "Чернобыль",
     "url": "chernobyl"
@@ -244,19 +155,9 @@
     "url": "cherkasy"
   },
   {
-    "id": 706369,
-    "name": "Хмельницкий",
-    "url": "khmelnitsky"
-  },
-  {
     "id": 700569,
     "name": "Николаев",
     "url": "nikolaev"
-  },
-  {
-    "id": 689487,
-    "name": "Вишневе",
-    "url": "vyshneve"
   },
   {
     "id": 707565,
@@ -269,21 +170,6 @@
     "url": "fastov"
   },
   {
-    "id": 688746,
-    "name": "Виноградовский",
-    "url": "vinogradovsky"
-  },
-  {
-    "id": 706571,
-    "name": "Казатин",
-    "url": "kazatin"
-  },
-  {
-    "id": 693468,
-    "name": "Славянск",
-    "url": "slavyansk"
-  },
-  {
     "id": 690412,
     "name": "Васильков",
     "url": "vasilkov"
@@ -294,24 +180,9 @@
     "url": "obukhov"
   },
   {
-    "id": 689558,
-    "name": "Винницкий",
-    "url": "vinnitskyy"
-  },
-  {
-    "id": 690688,
-    "name": "Умань",
-    "url": "uman"
-  },
-  {
     "id": 711515,
     "name": "Боярка",
     "url": "boyarka"
-  },
-  {
-    "id": 710409,
-    "name": "Чоп",
-    "url": "chop"
   },
   {
     "id": 696643,
@@ -322,26 +193,6 @@
     "id": 695594,
     "name": "Ровно",
     "url": "rovno"
-  },
-  {
-    "id": 702320,
-    "name": "Макеевка",
-    "url": "makeevka"
-  },
-  {
-    "id": 713122,
-    "name": "Авдеевка",
-    "url": "avdeevka"
-  },
-  {
-    "id": 710229,
-    "name": "Дебальцево",
-    "url": "debaltsevo"
-  },
-  {
-    "id": 702723,
-    "name": "Лубны",
-    "url": "lubny"
   },
   {
     "id": 686967,
@@ -359,11 +210,6 @@
     "url": "glevakha"
   },
   {
-    "id": 688860,
-    "name": "Вознесенск",
-    "url": "voznesensk"
-  },
-  {
     "id": 707471,
     "name": "Ивано-Франковск",
     "url": "ivano-frankivsk"
@@ -379,29 +225,9 @@
     "url": "lugansk"
   },
   {
-    "id": 707753,
-    "name": "Горловка",
-    "url": "gorlovka"
-  },
-  {
-    "id": 695559,
-    "name": "Рогатин",
-    "url": "rogatin"
-  },
-  {
-    "id": 705540,
-    "name": "Коблево",
-    "url": "koblevo"
-  },
-  {
     "id": 710741,
     "name": "Черновцы",
     "url": "chernovtsi"
-  },
-  {
-    "id": 701032,
-    "name": "Мироновка",
-    "url": "myronivka"
   },
   {
     "id": 524901,
