@@ -32,11 +32,7 @@ class WeatherDisplay extends React.Component {
     const weatherData = this.state.weatherData;
     if (!weatherData) return <Spinner animation="border" />;
     else if (weatherData === "err") {
-      return (
-        <div>
-          <h1>Город {this.props.activePlace} не найден</h1>
-        </div>
-      );
+      return <h1>Город {this.props.activePlace} не найден</h1>
     }
     const iconUrl = "http://openweathermap.org/img/w/" + weatherData.weather[0].icon + ".png";
     return (
