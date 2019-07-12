@@ -1,7 +1,7 @@
 import React from 'react';
 import WeatherDisplay from '../weatherDisplay/weatherDisplay'
 import './main.css'
-import { Redirect, Route, } from "react-router-dom";
+import { Route, } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { Nav, Navbar, Jumbotron, Container, Form, FormControl, InputGroup, Button} from "react-bootstrap"
 import data from '../../assets/json/city.list'
@@ -11,11 +11,9 @@ class Main extends React.Component {
     if (city !== "") {
       const index = data.findIndex(item => item.name.toLowerCase() === city.toLowerCase().trim());
       if (index === -1) {
-        console.log("404");
-        return <Redirect to={"/404"}/>
+        return this.props.history.push('/404')
       } else {
-        console.log(data[index].url);
-        return <Redirect to={"/"+data[index].url}/>
+        return this.props.history.push('/'+data[index].url)
       }
     }
   }
