@@ -1,6 +1,22 @@
-.navbar {
-    padding: 8px 5% 8px 5%;
+.left{
+    text-align: center
+}
+.right{
+    border-radius: 5px;
+    background-color: #dadde0;
+    text-align: center;
+    margin-right: 0 !important;
+
+}
+@media screen and (min-width: 992px) {
+    .right {
+        margin-right: 25px !important;
+        max-width: 330px !important;
+    }
+}
+.row{
+    padding: 0 20px;
 }
 .mt-auto {
-    padding-top: 10%;
+
 }

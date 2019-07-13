@@ -1,7 +1,7 @@
 import React from 'react';
 import './header.css'
-import { LinkContainer } from "react-router-bootstrap";
 import { Nav, Navbar, Form, FormControl, InputGroup, Button} from "react-bootstrap"
+import RenderButtons from "../ui/renderButtons";
 import data from '../../assets/json/city.list'
 
 class Header extends React.Component {
@@ -16,19 +16,6 @@ class Header extends React.Component {
     }
   }
 
-  static renderButtons() {
-    const places = [0, 1, 2, 3, 4];
-    const buttons = [];
-    for (const [, value] of places.entries()) {
-      buttons.push(
-        <LinkContainer to={"/"+data[value].url} key={value}>
-          <Nav.Link>{data[value].name}</Nav.Link>
-        </LinkContainer>
-      )
-    }
-    return buttons
-  }
-
   render() {
     return(
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -36,7 +23,7 @@ class Header extends React.Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            {Header.renderButtons()}
+            <RenderButtons/>
           </Nav>
           <Form inline>
             <InputGroup>

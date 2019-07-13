@@ -1,8 +1,3 @@
-.dailyBlock{
-    padding-top: 20px;
-    margin-left: 25px;
-
-}
 .description {
     font-size: 8vw;
 }
@@ -10,12 +5,7 @@
     .description {
         font-size: 2.5rem;
     }
-    .dailyBlock {
-    }
 }
 p {
     font-size: 20px;
-}
-font:first-letter {
-    text-transform:capitalize;
 }
