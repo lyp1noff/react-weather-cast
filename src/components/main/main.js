@@ -1,7 +1,7 @@
 import React from 'react';
 import WeatherDisplay from '../weatherDisplay/weatherDisplay'
 import './main.css'
-import { Route, } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { Nav, Navbar, Jumbotron, Container, Form, FormControl, InputGroup, Button} from "react-bootstrap"
 import data from '../../assets/json/city.list'
@@ -73,13 +73,11 @@ class Main extends React.Component {
         <Container className={"mt-auto"}>
           <Jumbotron>
             <Container>
-              {this.renderRoute()}
-              <Route exact path={"/404"} component={() => {
-                return <h1>Город не найден</h1>}}
-              />
-              <Route exact path={"/"} component={() => {
-                return <h1>Прогноз погоды</h1>}}
-              />
+              <Switch>
+                {this.renderRoute()}
+                <Route exact path={"/"} component={() => {return <h1>Прогноз погоды</h1>}}/>
+                <Route component={() => {return <h1>Город не найден</h1>}}/>
+              </Switch>
             </Container>
           </Jumbotron>
         </Container>
