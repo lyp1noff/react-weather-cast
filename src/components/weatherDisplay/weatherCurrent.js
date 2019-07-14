@@ -24,7 +24,7 @@ class WeatherCurrent extends React.Component {
   render() {
     const weatherData = this.state.weatherData;
     if (!weatherData) return null;
-    const iconUrl = "http://openweathermap.org/img/w/" + weatherData.weather[0].icon + ".png";
+    const iconUrl = require("../../assets/icons/" + weatherData.weather[0].icon + ".png");
     return (
       <div className={"currentWeather"}>
         <p className="info">
@@ -33,7 +33,8 @@ class WeatherCurrent extends React.Component {
         </p>
         <div>
           <p className="info description" id={""}>
-            {weatherData.weather[0].description}<img src={iconUrl} alt={weatherData.description}/>
+            {weatherData.weather[0].description}
+            <img style={{paddingBottom: '3px'}} width="32" height="34" src={iconUrl} alt={weatherData.description}/>
           </p>
         </div>
         <p>Средняя температура: {weatherData.main.temp}°С</p>
