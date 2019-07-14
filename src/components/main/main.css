@@ -1,22 +1,32 @@
-.left{
-    text-align: center
+.row{
+    margin: 0 !important;
+}
+.col, .col-lg-8{
+    padding: 0 !important;
 }
 .right{
     border-radius: 5px;
     background-color: #dadde0;
-    text-align: center;
     margin-right: 0 !important;
 
 }
-@media screen and (min-width: 992px) {
-    .right {
-        margin-right: 25px !important;
-        max-width: 330px !important;
-    }
-}
-.row{
-    padding: 0 20px;
+.jumbotron{
+    text-align: center;
+    padding: 1rem 1rem !important;
 }
 .mt-auto {
-
+    padding-top: 1rem;
+}
+@media screen and (min-width: 576px) {
+    .jumbotron{
+        padding: 2rem 2rem !important;
+    }
+    .mt-auto {
+        padding-top: 10%;
+    }
+}
+@media screen and (min-width: 992px) {
+    .right {
+        margin-top: 0;
+    }
 }

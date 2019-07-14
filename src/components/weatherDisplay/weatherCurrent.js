@@ -1,7 +1,7 @@
 import React from 'react';
 import './weatherDisplay.css'
 import axios from 'axios';
-import Spinner from "react-bootstrap/Spinner";
+import { withRouter } from "react-router-dom";
 
 class WeatherCurrent extends React.Component {
   constructor(props) {
@@ -23,16 +23,16 @@ class WeatherCurrent extends React.Component {
 
   render() {
     const weatherData = this.state.weatherData;
-    if (!weatherData) return <Spinner animation="border" />;
+    if (!weatherData) return null;
     const iconUrl = "http://openweathermap.org/img/w/" + weatherData.weather[0].icon + ".png";
     return (
-      <div>
-        <p className="description">
+      <div className={"currentWeather"}>
+        <p className="info">
           {this.props.place.name} - {weatherData.main.temp.toFixed()}°С
           <br/>
         </p>
         <div>
-          <p className="description" style={{textTransform: "capitalize"}}>
+          <p className="info description" id={""}>
             {weatherData.weather[0].description}<img src={iconUrl} alt={weatherData.description}/>
           </p>
         </div>
@@ -45,4 +45,4 @@ class WeatherCurrent extends React.Component {
   }
 }
 
-export default WeatherCurrent;
+export default withRouter(WeatherCurrent);

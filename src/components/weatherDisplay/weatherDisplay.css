@@ -1,21 +1,28 @@
+.currentWeather{
+    margin-top: 0;
+}
 .dailyBlock{
     padding-top: 20px;
     margin-left: 25px;
-
+}
+.info {
+    font-size: 8vw;
+    margin-bottom: 0;
 }
 .description {
-    font-size: 8vw;
-}
-@media screen and (min-width: 500px) {
-    .description {
-        font-size: 2.5rem;
-    }
-    .dailyBlock {
-    }
+    margin-bottom: 12px;
 }
 p {
     font-size: 20px;
 }
-font:first-letter {
+p:first-letter {
     text-transform:capitalize;
+}
+@media screen and (min-width: 500px) {
+    .info {
+        font-size: 2.5rem;
+    }
+    .currentWeather{
+        margin-top: 28px;
+    }
 }
