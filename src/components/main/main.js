@@ -1,8 +1,8 @@
 import React from 'react';
-import './main.css'
 import { Jumbotron, Container } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.css";
 import RenderRoutes from "../ui/renderRoutes";
+import './main.css'
 
 class Main extends React.Component {
   render() {
