@@ -2,10 +2,27 @@ import React from 'react';
 import './header.css'
 import { Nav, Navbar, Form, FormControl, InputGroup, Button} from "react-bootstrap"
 import RenderButtons from "../ui/renderButtons";
-import data from '../../assets/json/city.list'
+import Firebase from "../ui/firebaseConfig";
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.database = Firebase.database().ref();
+    this.state = {
+      data: null
+    }
+  }
+
+  componentDidMount() {
+    this.database.on('value', snap => {
+      this.setState({
+        data: snap.val()
+      })
+    });
+  }
+
   search(city) {
+    const data = this.state.data;
     if (city !== "") {
       const index = data.findIndex(item => item.name.toLowerCase() === city.toLowerCase().trim());
       if (index === -1) {

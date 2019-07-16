@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Switch } from "react-router-dom";
-import WeatherDisplay from "../weatherDisplay/weatherDisplay";
+import Jumbotron from "react-bootstrap/Jumbotron";
+import WeatherDisplay from "../ui/weatherDisplay";
+import WeatherTable from "../ui/weatherTable";
 import data from "../../assets/json/city.list";
 
 function RenderRoutes() {
@@ -19,8 +21,8 @@ function RenderRoutes() {
   return(
     <Switch>
       {routes}
-      <Route exact path={"/"} component={() => {return <div className={"single"}><h1>Прогноз погоды</h1></div>}}/>
-      <Route exact component={() => {return <div className={"single"}><h1>Город не найден</h1></div>}}/>
+      <Route exact path={"/"} component={() => {return <WeatherTable/>}}/>
+      <Route exact component={() => {return <Jumbotron><h1 className={"error"}>Город не найден</h1></Jumbotron>}}/>
     </Switch>
   )
 }

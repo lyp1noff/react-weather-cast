@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {Col, Row, Spinner} from "react-bootstrap";
-import './weatherDisplay.css'
+import {Col, Jumbotron, Row, Spinner} from "react-bootstrap";
 
 class WeatherDisplay extends React.Component {
   constructor(props) {
@@ -19,7 +18,6 @@ class WeatherDisplay extends React.Component {
       .then(response => {
         this.setState({currentWeatherData: response.data})
       });
-
     axios.get("data/2.5/forecast",
       {params: {id, appid: "5cec0145e4c7a8df41c2a081f2b2c509", units: "Metric"}})
       .then(response => {
@@ -55,8 +53,8 @@ class WeatherDisplay extends React.Component {
     const elements = [];
     const days = [];
     const daysName = ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
-    for (let i = 0; i<35; i++) {
-      if (new Date(dailyWeatherData.list[i].dt*1000).getHours() === 15) {
+    for (let i = 0; i<36; i++) {
+      if (new Date(dailyWeatherData.list[i].dt*1000).getHours() === 18 && i > 6) {
         days.push(i)
       }
     }
@@ -65,7 +63,7 @@ class WeatherDisplay extends React.Component {
         <p key={value}>
           {daysName[new Date(dailyWeatherData.list[value].dt*1000).getDay()]} {
           dailyWeatherData.list[value].main.temp.toFixed()}/
-          {dailyWeatherData.list[value+5].main.temp.toFixed()}°С
+          {dailyWeatherData.list[value+4].main.temp.toFixed()}°С
           <img src={require("../../assets/icons/" + dailyWeatherData.list[value].weather[0].icon + ".png")}
                alt={dailyWeatherData.description} />
         </p>
@@ -80,19 +78,23 @@ class WeatherDisplay extends React.Component {
 
   render() {
     if (!this.state.currentWeatherData || !this.state.dailyWeatherData) return (
-      <div className={"single"}>
-        <Spinner animation="border"/>
-      </div>
+      <Jumbotron>
+        <div className={"error"}>
+          <Spinner animation="border"/>
+        </div>
+      </Jumbotron>
     );
     return (
-      <Row>
-        <Col lg={8} className={"left"}>
-          {this.renderCurrentWeather()}
-        </Col>
-        <Col className={"right"}>
-          {this.renderDailyWeather()}
-        </Col>
-      </Row>
+      <Jumbotron>
+        <Row>
+          <Col lg={8} className={"left"}>
+            {this.renderCurrentWeather()}
+          </Col>
+          <Col className={"right"}>
+            {this.renderDailyWeather()}
+          </Col>
+        </Row>
+      </Jumbotron>
     );
   }
 }
