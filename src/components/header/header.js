@@ -1,8 +1,9 @@
 import React from 'react';
 import './header.css'
-import { Nav, Navbar, Form, FormControl, InputGroup, Button} from "react-bootstrap"
-import RenderButtons from "../ui/renderButtons";
-import Firebase from "../ui/firebaseConfig";
+import {Nav, Navbar, Form, FormControl, InputGroup, Button} from "react-bootstrap"
+import Buttons from "../ui/renderButtons";
+import Loader from "../ui/renderLoader";
+import Firebase from '../../configs/firebase';
 
 class Header extends React.Component {
   constructor(props) {
@@ -12,7 +13,6 @@ class Header extends React.Component {
       data: null
     }
   }
-
   componentDidMount() {
     this.database.on('value', snap => {
       this.setState({
@@ -23,7 +23,10 @@ class Header extends React.Component {
 
   search(city) {
     const data = this.state.data;
-    if (city !== "") {
+    if (!data) return (
+      <Loader/>
+    );
+    if (city && city !== "") {
       const index = data.findIndex(item => item.name.toLowerCase() === city.toLowerCase().trim());
       if (index === -1) {
         return this.props.history.push('/404')
@@ -33,6 +36,13 @@ class Header extends React.Component {
     }
   }
 
+  handleKeyPress = (event) => {
+    if(event.key === 'Enter'){
+      event.preventDefault();
+      this.search(this.city.value);
+    }
+  };
+
   render() {
     return(
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -40,12 +50,12 @@ class Header extends React.Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <RenderButtons/>
+            <Buttons/>
           </Nav>
           <Form inline>
             <InputGroup>
               <FormControl
-                onSubmit={() => (this.search())}
+                onKeyPress={this.handleKeyPress}
                 placeholder="Поиск"
                 aria-label="Search"
                 ref={(ref) => {this.city = ref}}

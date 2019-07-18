@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import {Col, Jumbotron, Row, Spinner} from "react-bootstrap";
+import {Col, Container, Jumbotron, Row} from "react-bootstrap";
+import Loader from "../ui/renderLoader";
+import './weatherDisplay.css';
 
 class WeatherDisplay extends React.Component {
   constructor(props) {
@@ -12,17 +14,19 @@ class WeatherDisplay extends React.Component {
 
   componentDidMount() {
     const id = this.props.place.id;
-    axios.defaults.baseURL = 'http://api.openweathermap.org/';
-    axios.get("data/2.5/weather",
-      {params: {id, appid: "5cec0145e4c7a8df41c2a081f2b2c509", units: "Metric", lang: "ru"}})
-      .then(response => {
-        this.setState({currentWeatherData: response.data})
-      });
-    axios.get("data/2.5/forecast",
-      {params: {id, appid: "5cec0145e4c7a8df41c2a081f2b2c509", units: "Metric"}})
-      .then(response => {
-        this.setState({dailyWeatherData: response.data})
-      });
+    if (id) {
+      axios.defaults.baseURL = 'http://api.openweathermap.org/';
+      axios.get("data/2.5/weather",
+        {params: {id, appid: "5cec0145e4c7a8df41c2a081f2b2c509", units: "Metric", lang: "ru"}})
+        .then(response => {
+          this.setState({currentWeatherData: response.data})
+        });
+      axios.get("data/2.5/forecast",
+        {params: {id, appid: "5cec0145e4c7a8df41c2a081f2b2c509", units: "Metric"}})
+        .then(response => {
+          this.setState({dailyWeatherData: response.data})
+        });
+    }
   }
 
   renderCurrentWeather() {
@@ -77,24 +81,27 @@ class WeatherDisplay extends React.Component {
   }
 
   render() {
-    if (!this.state.currentWeatherData || !this.state.dailyWeatherData) return (
-      <Jumbotron>
-        <div className={"error"}>
-          <Spinner animation="border"/>
-        </div>
-      </Jumbotron>
+    if (!this.state.currentWeatherData || !this.state.dailyWeatherData)
+      return (
+        <Container className={"weatherDisplay"}>
+          <Jumbotron className={"weatherDisplay"}>
+            <Loader/>
+          </Jumbotron>
+        </Container>
     );
     return (
-      <Jumbotron>
-        <Row>
-          <Col lg={8} className={"left"}>
-            {this.renderCurrentWeather()}
-          </Col>
-          <Col className={"right"}>
-            {this.renderDailyWeather()}
-          </Col>
-        </Row>
-      </Jumbotron>
+      <Container className={"weatherDisplay"}>
+        <Jumbotron className={"weatherDisplay"}>
+          <Row>
+            <Col lg={8} className={"left"}>
+              {this.renderCurrentWeather()}
+            </Col>
+            <Col className={"right"}>
+              {this.renderDailyWeather()}
+            </Col>
+          </Row>
+        </Jumbotron>
+      </Container>
     );
   }
 }
