@@ -1,15 +1,3 @@
-img {
-    padding-bottom: 1.4%;
-    width: 15%;
-    max-width: 40px;
-    height: auto;
-}
-p {
-    font-size: 20px;
-}
-p:first-letter {
-    text-transform:capitalize;
-}
 .weatherDisplay.jumbotron{
     text-align: center;
     height: auto;
@@ -58,7 +46,7 @@ p:first-letter {
     }
 }
 @media screen and (min-width: 576px) {
-    .jumbotron{
+    .weatherDisplay.jumbotron{
         padding: 2rem 2rem !important;
     }
 }
@@ -80,8 +68,5 @@ p:first-letter {
     }
     .right {
         margin-top: 0;
-    }
-    img {
-        padding-bottom: 0.7%;
     }
 }

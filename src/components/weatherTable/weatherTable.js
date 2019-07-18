@@ -6,9 +6,7 @@ class WeatherTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: this.props.data,
-      active: 0,
-      term: ''
+      data: this.props.data
     };
   }
 
@@ -16,7 +14,7 @@ class WeatherTable extends React.Component {
     return(
       <Container className={"weatherTable"}>
         <Jumbotron>
-          <h1>DEVELOP</h1>
+          <h1>TABLE</h1>
         </Jumbotron>
       </Container>
     )
