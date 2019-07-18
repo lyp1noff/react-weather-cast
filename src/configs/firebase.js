@@ -1,7 +1,8 @@
-import firebase from "firebase";
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 const config = {
-  apiKey: "AIzaSyB4j-l8qFPJPuHCe46a7dzGNpvX175w_Ws",
+  apiKey: process.env.REACT_APP_API_KEY_FIREBASE,
   authDomain: "react-weather-forecast-294e6.firebaseapp.com",
   databaseURL: "https://react-weather-forecast-294e6.firebaseio.com",
   projectId: "react-weather-forecast-294e6",
