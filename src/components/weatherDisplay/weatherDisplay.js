@@ -58,7 +58,7 @@ class WeatherDisplay extends React.Component {
     const days = [];
     const daysName = ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
     for (let i = 0; i<36; i++) {
-      if (new Date(dailyWeatherData.list[i].dt*1000).getHours() === 18 && i > 6) {
+      if (new Date(dailyWeatherData.list[i].dt*1000).getHours() === 18 && i > 5) {
         days.push(i)
       }
     }
