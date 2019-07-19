@@ -25,7 +25,7 @@ class Main extends React.Component {
   routes() {
     const data = this.state.data;
     if (!data) return (
-      <Route exact component={() => {return <WeatherDisplay place={"err"}/>}}/>
+      <Route exact component={() => {return <WeatherDisplay city={"err"}/>}}/>
     );
     const routes = [];
     for (const [index] of data.entries()) {
@@ -33,7 +33,7 @@ class Main extends React.Component {
         <Route exact path={"/"+data[index].url} key={index} component={() => {
           return (
             <Route exact path={"/"+data[index].url} key={index} component={() => {
-              return <WeatherDisplay key={index} place={data[index]}/>}}
+              return <WeatherDisplay key={index} city={data[index]}/>}}
             />
           )}}
         />

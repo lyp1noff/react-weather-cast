@@ -2,7 +2,6 @@ import React from 'react';
 import './header.css'
 import {Nav, Navbar, Form, FormControl, InputGroup, Button} from "react-bootstrap"
 import Buttons from "../ui/renderButtons";
-import Loader from "../ui/renderLoader";
 import Firebase from '../../configs/firebase';
 
 class Header extends React.Component {
@@ -23,9 +22,6 @@ class Header extends React.Component {
 
   search(city) {
     const data = this.state.data;
-    if (!data) return (
-      <Loader/>
-    );
     if (city && city !== "") {
       const index = data.findIndex(item => item.name.toLowerCase() === city.toLowerCase().trim());
       if (index === -1) {
@@ -44,13 +40,14 @@ class Header extends React.Component {
   };
 
   render() {
+    if (!this.state.data) return null;
     return(
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Navbar.Brand href="/">Прогноз погоды</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Buttons/>
+            <Buttons data={this.state.data}/>
           </Nav>
           <Form inline>
             <InputGroup>

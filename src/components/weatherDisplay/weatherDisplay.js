@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {Col, Container, Jumbotron, Row} from "react-bootstrap";
-import Loader from "../ui/renderLoader";
+import {Col, Container, Jumbotron, Row, Spinner} from "react-bootstrap";
 import './weatherDisplay.css';
 
 class WeatherDisplay extends React.Component {
@@ -13,7 +12,7 @@ class WeatherDisplay extends React.Component {
   }
 
   componentDidMount() {
-    const id = this.props.place.id;
+    const id = this.props.city.id;
     if (id) {
       axios.defaults.baseURL = 'http://api.openweathermap.org/';
       axios.get("data/2.5/weather",
@@ -35,7 +34,7 @@ class WeatherDisplay extends React.Component {
     return (
       <div className={"currentWeather"}>
         <p className="info">
-          {this.props.place.name} - {currentWeatherData.main.temp.toFixed()}°С
+          {this.props.city.name} - {currentWeatherData.main.temp.toFixed()}°С
           <br/>
         </p>
         <div>
@@ -81,11 +80,19 @@ class WeatherDisplay extends React.Component {
   }
 
   render() {
-    if (!this.state.currentWeatherData || !this.state.dailyWeatherData)
+    if (this.props.city === "err")
+      return(
+        <div className={"error center"}>
+          <Spinner animation="border"/>
+        </div>
+      );
+    else if (!this.state.currentWeatherData || !this.state.dailyWeatherData)
       return (
         <Container className={"weatherDisplay"}>
           <Jumbotron className={"weatherDisplay"}>
-            <Loader/>
+            <div className={"error weather"}>
+              <Spinner animation="border"/>
+            </div>
           </Jumbotron>
         </Container>
     );

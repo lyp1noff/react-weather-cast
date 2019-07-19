@@ -1,9 +1,9 @@
 import React from 'react';
 import {LinkContainer} from "react-router-bootstrap";
 import {Nav} from "react-bootstrap";
-import data from "../../assets/json/city.list";
 
-function Buttons() {
+function Buttons(props) {
+  const data = props.data;
   const places = [0, 1, 2, 3, 4];
   const buttons = [];
   for (const [, value] of places.entries()) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import './weatherTable.css'
-import {Container, Jumbotron} from "react-bootstrap";
+import {Container, Jumbotron, Spinner} from "react-bootstrap";
 
 class WeatherTable extends React.Component {
   constructor(props) {
@@ -11,6 +11,13 @@ class WeatherTable extends React.Component {
   }
 
   render() {
+    if (!this.state.data) {
+      return(
+        <div className={"error center"}>
+          <Spinner animation="border"/>
+        </div>
+      )
+    }
     return(
       <Container className={"weatherTable"}>
         <Jumbotron>
