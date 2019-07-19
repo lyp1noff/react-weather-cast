@@ -16,7 +16,7 @@ p:first-letter {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.error.weather{
+.error.weather {
     position: relative;
 }
 @media screen and (min-width: 992px) {
