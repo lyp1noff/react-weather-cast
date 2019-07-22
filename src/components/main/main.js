@@ -9,7 +9,7 @@ import Firebase from '../../configs/firebase';
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.database = Firebase.database().ref("0/cities");
+    this.database = Firebase.database().ref("cities");
     this.state = {
       data: null
     }
