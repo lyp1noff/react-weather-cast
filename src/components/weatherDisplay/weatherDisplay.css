@@ -25,6 +25,9 @@
 .dailyBlock > p img{
     padding-bottom: 2.5%;
 }
+p.info.description {
+    padding-left: 3px;
+}
 .info {
     font-size: 8vw;
     margin-bottom: 0;

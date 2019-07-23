@@ -4,6 +4,7 @@ import {Container, Jumbotron, Spinner} from "react-bootstrap";
 import BootstrapTable from 'react-bootstrap-table-next';
 import Firebase from "../../configs/firebase";
 import axios from "axios";
+import Slider from '@material-ui/core/Slider';
 
 class WeatherTable extends React.Component {
   constructor(props) {
@@ -14,17 +15,14 @@ class WeatherTable extends React.Component {
     this.weatherData = [];
     this.tableData = [{}];
     this.state = {
-      sliderValue: {
-        min: -50,
-        max: 50,
-      },
+      sliderValue: [-45, 45]
     }
   }
 
   componentWillMount() {
     const DataBaseData = this.props.DataBaseData;
     this.lastUpdateDate = DataBaseData.weatherData.date;
-    if (DataBaseData.weatherData.date + 300000 < Date.now() || !DataBaseData.weatherData.data) {
+    if (DataBaseData.weatherData.date + 3000000 < Date.now() || !DataBaseData.weatherData.data) {
       this.apiReload = true;
       console.log("RELOADED FROM API");
       for (const [index] of DataBaseData.cities.entries()) {
@@ -68,7 +66,7 @@ class WeatherTable extends React.Component {
 
   renderTable() {
     var filteredTableData = this.tableData.filter((x) => {
-      return x.tempValue <= this.state.sliderValue.max && x.tempValue >= this.state.sliderValue.min;
+      return x.tempValue <= this.state.sliderValue[1] && x.tempValue >= this.state.sliderValue[0];
     });
 
     const columns = [{
@@ -106,7 +104,13 @@ class WeatherTable extends React.Component {
           <h1 style={{textAlign: "center", marginBottom: '5%'}}>Прогноз погоды по городам</h1>
           <Jumbotron>
             <Container className={"slider"}>
-              <p>slider_here</p>
+              <h5>Диапазон температуры</h5>
+              <Slider
+                min={-50} max={50}
+                value={this.state.sliderValue}
+                onChange={(event, newValue) => {this.setState({sliderValue: newValue});}}
+                valueLabelDisplay="auto"
+              />
             </Container>
             {this.renderTable()}
           </Jumbotron>

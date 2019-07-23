@@ -35,7 +35,6 @@ class WeatherDisplay extends React.Component {
       <div className={"currentWeather"}>
         <p className="info">
           {this.props.city.name} - {currentWeatherData.main.temp.toFixed()}°С
-          <br/>
         </p>
         <div>
           <p className="info description" id={""}>

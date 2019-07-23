@@ -1,8 +1,9 @@
 .weatherTable.container{
-    padding: 5%;
+    padding-top: 5%;
 }
 .slider.container{
-    padding: 25px;
+    text-align: center;
+    padding: 0 5vw;
 }
 tr {
     font-size: 4vw;
