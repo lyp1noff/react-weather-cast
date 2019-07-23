@@ -8,14 +8,24 @@ import axios from "axios";
 class WeatherTable extends React.Component {
   constructor(props) {
     super(props);
+    this.apiReload = false;
+    this.lastUpdateDate = null;
     this.arr = [];
     this.weatherData = [];
     this.tableData = [{}];
+    this.state = {
+      sliderValue: {
+        min: -50,
+        max: 50,
+      },
+    }
   }
 
   componentWillMount() {
     const DataBaseData = this.props.DataBaseData;
-    if (DataBaseData.weatherData.date + 120000 < Date.now() || !DataBaseData.weatherData.data) {
+    this.lastUpdateDate = DataBaseData.weatherData.date;
+    if (DataBaseData.weatherData.date + 300000 < Date.now() || !DataBaseData.weatherData.data) {
+      this.apiReload = true;
       console.log("RELOADED FROM API");
       for (const [index] of DataBaseData.cities.entries()) {
         this.arr.push(DataBaseData.cities[index].id)
@@ -28,6 +38,7 @@ class WeatherTable extends React.Component {
         this.tableData[index]["id"] = index;
         this.tableData[index]["name"] = DataBaseData.cities[index].name;
         this.tableData[index]["temp"] = DataBaseData.weatherData.data[index].main.temp.toFixed() + "°С";
+        this.tableData[index]["tempValue"] = DataBaseData.weatherData.data[index].main.temp.toFixed();
       }
     }
     this.tableData.pop();
@@ -46,14 +57,20 @@ class WeatherTable extends React.Component {
         if (this.arr.length > 0) {
           this.getData()
         }
+        var date = new Date();
         Firebase.database().ref('weatherData').set({
           data: this.weatherData,
-          date: Date.now()
+          date: Date.now(),
+          simpleDate: date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
         });
       });
   }
 
   renderTable() {
+    var filteredTableData = this.tableData.filter((x) => {
+      return x.tempValue <= this.state.sliderValue.max && x.tempValue >= this.state.sliderValue.min;
+    });
+
     const columns = [{
       dataField: 'name',
       text: 'Город',
@@ -68,14 +85,16 @@ class WeatherTable extends React.Component {
       <BootstrapTable
         bootstrap4
         keyField="id"
-        data={this.tableData}
+        data={filteredTableData}
         columns={columns}
+        defaultSortDirection={"asc"}
       />
     )
   }
 
   render() {
-    if (!this.props.DataBaseData) {
+    if (!this.props.DataBaseData || (this.apiReload && this.props.DataBaseData.weatherData.date === this.lastUpdateDate) ||
+      Object.keys(this.props.DataBaseData.cities).length !== Object.keys(this.props.DataBaseData.weatherData.data).length) {
       return(
         <div className={"error center"}>
           <Spinner animation="border"/>
@@ -84,8 +103,11 @@ class WeatherTable extends React.Component {
     } else {
       return(
         <Container className={"weatherTable"}>
-          <h1 style={{textAlign: "center", marginBottom: '5%'}}>Weather</h1>
+          <h1 style={{textAlign: "center", marginBottom: '5%'}}>Прогноз погоды по городам</h1>
           <Jumbotron>
+            <Container className={"slider"}>
+              <p>slider_here</p>
+            </Container>
             {this.renderTable()}
           </Jumbotron>
         </Container>
