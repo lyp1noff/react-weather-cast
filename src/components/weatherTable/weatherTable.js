@@ -22,7 +22,7 @@ class WeatherTable extends React.Component {
   componentWillMount() {
     const DataBaseData = this.props.DataBaseData;
     this.lastUpdateDate = DataBaseData.weatherData.date;
-    if (DataBaseData.weatherData.date + 3000000 < Date.now() || !DataBaseData.weatherData.data) {
+    if (DataBaseData.weatherData.date + 900000 < Date.now() || !DataBaseData.weatherData.data) {
       this.apiReload = true;
       console.log("RELOADED FROM API");
       for (const [index] of DataBaseData.cities.entries()) {
