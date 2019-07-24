@@ -22,11 +22,10 @@
 .dailyBlock{
     margin: 16px;
 }
-.dailyBlock > p img{
-    padding-bottom: 2.5%;
-}
-p.info.description {
-    padding-left: 3px;
+.wi {
+    padding-right: 1.2%;
+    position: relative;
+    top: 3px;
 }
 .info {
     font-size: 8vw;

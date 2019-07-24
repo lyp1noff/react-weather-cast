@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Col, Container, Jumbotron, Row, Spinner} from "react-bootstrap";
 import './weatherDisplay.css';
+import WeatherIcon from 'react-icons-weather';
 
 class WeatherDisplay extends React.Component {
   constructor(props) {
@@ -30,7 +31,6 @@ class WeatherDisplay extends React.Component {
 
   renderCurrentWeather() {
     const currentWeatherData = this.state.currentWeatherData;
-    const iconUrl = require("../../assets/icons/" + currentWeatherData.weather[0].icon + ".png");
     return (
       <div className={"currentWeather"}>
         <p className="info">
@@ -39,7 +39,7 @@ class WeatherDisplay extends React.Component {
         <div>
           <p className="info description" id={""}>
             {currentWeatherData.weather[0].description}
-            <img src={iconUrl} alt={currentWeatherData.description}/>
+            <WeatherIcon name="owm" iconId={currentWeatherData.weather[0].id} flip="horizontal" rotate="90" />
           </p>
         </div>
         <p>Максимальная: {currentWeatherData.main.temp_max}°С</p>
@@ -66,8 +66,7 @@ class WeatherDisplay extends React.Component {
           {daysName[new Date(dailyWeatherData.list[value].dt*1000).getDay()]} {
           dailyWeatherData.list[value].main.temp.toFixed()}/
           {dailyWeatherData.list[value+4].main.temp.toFixed() - 3}°С {/* - 3 because of bad API Data*/}
-          <img src={require("../../assets/icons/" + dailyWeatherData.list[value].weather[0].icon + ".png")}
-               alt={dailyWeatherData.description} />
+          <WeatherIcon name="owm" iconId={dailyWeatherData.list[value].weather[0].id} flip="horizontal" rotate="90" />
         </p>
       )
     }
