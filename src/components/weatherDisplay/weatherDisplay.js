@@ -65,7 +65,7 @@ class WeatherDisplay extends React.Component {
         <p key={value}>
           {daysName[new Date(dailyWeatherData.list[value].dt*1000).getDay()]} {
           dailyWeatherData.list[value].main.temp.toFixed()}/
-          {dailyWeatherData.list[value+4].main.temp.toFixed()}°С
+          {dailyWeatherData.list[value+4].main.temp.toFixed() - 3}°С {/* - 3 because of bad API Data*/}
           <img src={require("../../assets/icons/" + dailyWeatherData.list[value].weather[0].icon + ".png")}
                alt={dailyWeatherData.description} />
         </p>

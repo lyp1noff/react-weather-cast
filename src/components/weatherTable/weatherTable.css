@@ -3,7 +3,7 @@
 }
 .slider.container{
     text-align: center;
-    padding: 0 5vw;
+    padding: 0 5vw 15px 5vw;
 }
 tr {
     font-size: 4vw;
@@ -11,6 +11,9 @@ tr {
 @media screen and (min-width: 992px) {
     tr {
         font-size: 2.2rem;
+    }
+    br {
+        display: none;
     }
 }
 @media screen and (min-width: 576px) {

@@ -85,7 +85,6 @@ class WeatherTable extends React.Component {
         keyField="id"
         data={filteredTableData}
         columns={columns}
-        defaultSortDirection={"asc"}
       />
     )
   }
@@ -104,7 +103,7 @@ class WeatherTable extends React.Component {
           <h1 style={{textAlign: "center", marginBottom: '5%'}}>Прогноз погоды по городам</h1>
           <Jumbotron>
             <Container className={"slider"}>
-              <h5>Диапазон температуры</h5>
+              <h5>Диапазон температуры <br/> (от {this.state.sliderValue[0]}°С до {this.state.sliderValue[1]}°С)</h5>
               <Slider
                 min={-50} max={50}
                 value={this.state.sliderValue}
