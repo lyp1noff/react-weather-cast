@@ -24,22 +24,25 @@
 }
 .wi {
     padding-right: 1.2%;
+}
+.info > .wi {
     position: relative;
-    top: 3px;
+    top: 1%;
 }
 .info {
     font-size: 8vw;
-    margin-bottom: 0;
+    margin-bottom: 0.3rem;
 }
 .description {
     margin-bottom: 12px;
+    font-size: 26px !important;
 }
 .weatherDisplay.container{
     padding: 5%;
 }
 @media screen and (min-width: 442px) {
     .description {
-        font-size: 2.2rem;
+        font-size: 2.2rem !important;
     }
 }
 @media screen and (min-width: 500px) {
@@ -62,6 +65,7 @@
         transform: translate(-50%, -50%);
     }
     .weatherDisplay.jumbotron{
+        padding: 2rem;
         text-align: center;
         height: auto;
         margin-top: auto !important;

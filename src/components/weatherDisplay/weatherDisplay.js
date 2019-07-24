@@ -1,79 +1,90 @@
 import React from 'react';
-import axios from 'axios';
 import {Col, Container, Jumbotron, Row, Spinner} from "react-bootstrap";
 import './weatherDisplay.css';
 import WeatherIcon from 'react-icons-weather';
+import localization from '../../assets/json/localization'
 
 class WeatherDisplay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentWeatherData: null, dailyWeatherData: null
+      WeatherData: null
     };
   }
 
   componentDidMount() {
-    const id = this.props.city.id;
-    if (id) {
-      axios.defaults.baseURL = 'http://api.openweathermap.org/';
-      axios.get("data/2.5/weather",
-        {params: {id, appid: "5cec0145e4c7a8df41c2a081f2b2c509", units: "Metric", lang: "ru"}})
-        .then(response => {
-          this.setState({currentWeatherData: response.data})
-        });
-      axios.get("data/2.5/forecast",
-        {params: {id, appid: "5cec0145e4c7a8df41c2a081f2b2c509", units: "Metric"}})
-        .then(response => {
-          this.setState({dailyWeatherData: response.data})
-        });
+    const name = this.props.city.url;
+    if (name) {
+      var OAuth = require('oauth');
+      var header = {
+        "X-Yahoo-App-Id": "mYMrzv64"
+      };
+      var request = new OAuth.OAuth(
+        null,
+        null,
+        'dj0yJmk9dVRadkp2WktSanJQJmQ9WVdrOWJWbE5jbnAyTmpRbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PWVk',
+        '34f2dcb2d5bb6972c377a171fc2a1f6577b8caa2',
+        '1.0',
+        null,
+        'HMAC-SHA1',
+        null,
+        header
+      );
+      request.get(
+        'https://weather-ydn-yql.media.yahoo.com/forecastrss?location=' + name + '&format=json&u=c',
+        null,
+        null,
+        (err, data) => {
+          if (err) {
+            console.log(err);
+          } else {
+            this.setState({WeatherData: JSON.parse(data)})
+          }
+        }
+      );
     }
   }
 
-  renderCurrentWeather() {
-    const currentWeatherData = this.state.currentWeatherData;
-    return (
-      <div className={"currentWeather"}>
-        <p className="info">
-          {this.props.city.name} - {currentWeatherData.main.temp.toFixed()}°С
-        </p>
-        <div>
-          <p className="info description" id={""}>
-            {currentWeatherData.weather[0].description}
-            <WeatherIcon name="owm" iconId={currentWeatherData.weather[0].id} flip="horizontal" rotate="90" />
-          </p>
-        </div>
-        <p>Максимальная: {currentWeatherData.main.temp_max}°С</p>
-        <p>Минимальная: {currentWeatherData.main.temp_min}°С</p>
-        <p>Влажность воздуха: {currentWeatherData.main.humidity}%</p>
-        <p>Скорость ветра: {currentWeatherData.wind.speed} м/с</p>
-      </div>
-    )
-  }
-
-  renderDailyWeather() {
-    const dailyWeatherData = this.state.dailyWeatherData;
+  renderWeather() {
+    const WeatherData = this.state.WeatherData;
     const elements = [];
-    const days = [];
     const daysName = ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
-    for (let i = 0; i<36; i++) {
-      if (new Date(dailyWeatherData.list[i].dt*1000).getHours() === 18 && i > 5) {
-        days.push(i)
-      }
-    }
-    for (const [, value] of days.entries()) {
+    for (let i = 0; i < 5; i++) {
       elements.push(
-        <p key={value}>
-          {daysName[new Date(dailyWeatherData.list[value].dt*1000).getDay()]} {
-          dailyWeatherData.list[value].main.temp.toFixed()}/
-          {dailyWeatherData.list[value+4].main.temp.toFixed() - 3}°С {/* - 3 because of bad API Data*/}
-          <WeatherIcon name="owm" iconId={dailyWeatherData.list[value].weather[0].id} flip="horizontal" rotate="90" />
+        <p key={i}>
+          {daysName[new Date(WeatherData.forecasts[i].date*1000).getDay()]} {WeatherData.forecasts[i].high}/
+          {WeatherData.forecasts[i].low}°С
+          <WeatherIcon name="yahoo" iconId={WeatherData.forecasts[i].code.toString()} flip="horizontal" rotate="90" />
         </p>
       )
     }
+    console.log(WeatherData.current_observation.condition.text);
     return (
-      <div className={"dailyBlock"}>
-        {elements}
-      </div>
+      <Row>
+        <Col lg={8} className={"left"}>
+          <div className={"currentWeather"}>
+            <p className="info">
+              {this.props.city.name} - {WeatherData.current_observation.condition.temperature}°С
+            </p>
+            <div>
+              <p className="info description" id={""}>
+                {localization[WeatherData.current_observation.condition.text]}
+                <WeatherIcon name="yahoo" iconId={WeatherData.current_observation.condition.code.toString()}
+                             flip="horizontal" rotate="90" />
+              </p>
+            </div>
+            <p>Максимальная: {WeatherData.forecasts[0].high}°С</p>
+            <p>Минимальная: {WeatherData.forecasts[0].low}°С</p>
+            <p>Влажность воздуха: {WeatherData.current_observation.atmosphere.humidity}%</p>
+            <p>Скорость ветра: {WeatherData.current_observation.wind.speed} м/с</p>
+          </div>
+        </Col>
+        <Col className={"right"}>
+          <div className={"dailyBlock"}>
+            {elements}
+          </div>
+        </Col>
+      </Row>
     );
   }
 
@@ -84,7 +95,7 @@ class WeatherDisplay extends React.Component {
           <Spinner animation="border"/>
         </div>
       );
-    else if (!this.state.currentWeatherData || !this.state.dailyWeatherData)
+    else if (!this.state.WeatherData)
       return (
         <Container className={"weatherDisplay"}>
           <Jumbotron className={"weatherDisplay"}>
@@ -97,14 +108,7 @@ class WeatherDisplay extends React.Component {
     return (
       <Container className={"weatherDisplay"}>
         <Jumbotron className={"weatherDisplay"}>
-          <Row>
-            <Col lg={8} className={"left"}>
-              {this.renderCurrentWeather()}
-            </Col>
-            <Col className={"right"}>
-              {this.renderDailyWeather()}
-            </Col>
-          </Row>
+          {this.renderWeather()}
         </Jumbotron>
       </Container>
     );

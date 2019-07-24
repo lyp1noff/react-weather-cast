@@ -9,8 +9,6 @@ import Slider from '@material-ui/core/Slider';
 class WeatherTable extends React.Component {
   constructor(props) {
     super(props);
-    this.apiReload = false;
-    this.lastUpdateDate = null;
     this.arr = [];
     this.weatherData = [];
     this.tableData = [{}];
@@ -21,9 +19,7 @@ class WeatherTable extends React.Component {
 
   componentWillMount() {
     const DataBaseData = this.props.DataBaseData;
-    this.lastUpdateDate = DataBaseData.weatherData.date;
     if (DataBaseData.weatherData.date + 900000 < Date.now() || !DataBaseData.weatherData.data) {
-      this.apiReload = true;
       console.log("RELOADED FROM API");
       for (const [index] of DataBaseData.cities.entries()) {
         this.arr.push(DataBaseData.cities[index].id)
@@ -90,8 +86,7 @@ class WeatherTable extends React.Component {
   }
 
   render() {
-    if (!this.props.DataBaseData || (this.apiReload && this.props.DataBaseData.weatherData.date === this.lastUpdateDate) ||
-      Object.keys(this.props.DataBaseData.cities).length !== Object.keys(this.props.DataBaseData.weatherData.data).length) {
+    if (!this.props.DataBaseData) {
       return(
         <div className={"error center"}>
           <Spinner animation="border"/>
