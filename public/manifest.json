@@ -1,6 +1,6 @@
 {
-  "short_name": "Weather App",
-  "name": "Weather Forecast",
+  "short_name": "Прогноз погоды",
+  "name": "Прогноз погоды",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/kiev",
+  "start_url": "/kiev,ua",
   "display": "standalone",
   "theme_color": "#212529",
   "background_color": "#212529"

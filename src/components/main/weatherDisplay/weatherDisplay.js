@@ -2,7 +2,7 @@ import React from 'react';
 import {Col, Container, Jumbotron, Row, Spinner} from "react-bootstrap";
 import './weatherDisplay.css';
 import WeatherIcon from 'react-icons-weather';
-import localization from '../../assets/json/localization'
+import localization from '../../../assets/json/localization'
 
 class WeatherDisplay extends React.Component {
   constructor(props) {
@@ -64,7 +64,7 @@ class WeatherDisplay extends React.Component {
         <Col lg={8} className={"left"}>
           <div className={"currentWeather"}>
             <p className="info">
-              {this.props.city.name} - {WeatherData.current_observation.condition.temperature}°С
+              {WeatherData.current_observation.condition.temperature}°С - {this.props.city.name}
             </p>
             <div>
               <p className="info description" id={""}>
@@ -76,7 +76,7 @@ class WeatherDisplay extends React.Component {
             <p>Максимальная: {WeatherData.forecasts[0].high}°С</p>
             <p>Минимальная: {WeatherData.forecasts[0].low}°С</p>
             <p>Влажность воздуха: {WeatherData.current_observation.atmosphere.humidity}%</p>
-            <p>Скорость ветра: {WeatherData.current_observation.wind.speed} м/с</p>
+            <p>Скорость ветра: {WeatherData.current_observation.wind.speed} км/ч</p>
           </div>
         </Col>
         <Col className={"right"}>
@@ -91,7 +91,7 @@ class WeatherDisplay extends React.Component {
   render() {
     if (this.props.city === "err")
       return(
-        <div className={"error center"}>
+        <div className={"loader center"}>
           <Spinner animation="border"/>
         </div>
       );
@@ -99,7 +99,7 @@ class WeatherDisplay extends React.Component {
       return (
         <Container className={"weatherDisplay"}>
           <Jumbotron className={"weatherDisplay"}>
-            <div className={"error weather"}>
+            <div className={"loader weather"}>
               <Spinner animation="border"/>
             </div>
           </Jumbotron>

@@ -2,7 +2,7 @@ import React from 'react';
 import './weatherTable.css'
 import {Container, Jumbotron, Spinner} from "react-bootstrap";
 import BootstrapTable from 'react-bootstrap-table-next';
-import Firebase from "../../configs/firebase";
+import Firebase from "../../../configs/firebase";
 import axios from "axios";
 import Slider from '@material-ui/core/Slider';
 
@@ -88,14 +88,14 @@ class WeatherTable extends React.Component {
   render() {
     if (!this.props.DataBaseData) {
       return(
-        <div className={"error center"}>
+        <div className={"loader center"}>
           <Spinner animation="border"/>
         </div>
       )
     } else {
       return(
         <Container className={"weatherTable"}>
-          <h1 style={{textAlign: "center", marginBottom: '5%'}}>Прогноз погоды по городам</h1>
+          <h1 style={{textAlign: "center", marginBottom: '5%'}}>Таблица температур по городам</h1>
           <Jumbotron>
             <Container className={"slider"}>
               <h5>Диапазон температуры <br/> (от {this.state.sliderValue[0]}°С до {this.state.sliderValue[1]}°С)</h5>

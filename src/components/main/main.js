@@ -1,10 +1,12 @@
 import React from 'react';
 import './main.css';
-import {Container, Jumbotron, Spinner} from "react-bootstrap"
+import {Spinner} from "react-bootstrap"
 import { Route, Switch } from "react-router-dom";
-import WeatherDisplay from "../weatherDisplay/weatherDisplay";
-import WeatherTable from "../weatherTable/weatherTable";
+import WeatherDisplay from "./weatherDisplay/weatherDisplay";
+import WeatherTable from "./weatherTable/weatherTable";
 import Firebase from '../../configs/firebase';
+import Home from "./home/home";
+import Error from "./404/404";
 
 class Main extends React.Component {
   constructor(props) {
@@ -43,21 +45,17 @@ class Main extends React.Component {
   render() {
     if (!this.state.DataBaseData) {
       return(
-        <div className={"error center"}>
+        <div className={"loader center"}>
           <Spinner animation="border"/>
         </div>
       )
     }
-    return(
+    else return(
       <Switch>
-        <Route exact path={"/"} component={() => {return <WeatherTable DataBaseData={this.state.DataBaseData}/>}}/>
+        <Route exact path={"/"} component={() => {return <Home/>}}/>
+        <Route exact path={"/table"} component={() => {return <WeatherTable DataBaseData={this.state.DataBaseData}/>}}/>
         {this.routes()}
-        <Route exact component={() => {return (
-          <Container className={"weatherDisplay"}>
-            <Jumbotron className={"weatherDisplay"}>
-              <h1 className={"error"}>Город не найден</h1>
-            </Jumbotron>
-          </Container>)}}
+        <Route exact component={() => {return <Error/>}}
         />
       </Switch>
     );

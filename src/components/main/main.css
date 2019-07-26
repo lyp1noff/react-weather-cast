@@ -10,17 +10,17 @@ p {
 p:first-letter {
     text-transform:capitalize;
 }
-.error.center {
+.loader.center {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.error.weather {
+.loader.weather {
     position: relative;
 }
 @media screen and (min-width: 992px) {
-    .error.weather {
+    .loader.weather {
         position: absolute;
         top: 50%;
         left: 50%;

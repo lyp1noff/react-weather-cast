@@ -41,7 +41,7 @@ class Header extends React.Component {
 
   render() {
     if (!this.state.data) return null;
-    return(
+    else return(
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Navbar.Brand href="/">Прогноз погоды</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

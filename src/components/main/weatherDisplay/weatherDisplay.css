@@ -27,7 +27,7 @@
 }
 .info > .wi {
     position: relative;
-    top: 1%;
+    top: 2px;
 }
 .info {
     font-size: 8vw;
