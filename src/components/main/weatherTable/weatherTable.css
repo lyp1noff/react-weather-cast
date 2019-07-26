@@ -3,10 +3,17 @@
 }
 .slider.container{
     text-align: center;
-    padding: 0 5vw 15px 5vw;
+    padding: 0 2% 30px 2%;
 }
 tr {
     font-size: 4vw;
+}
+div.slider-div{
+    padding-top: 6px;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
 }
 @media screen and (min-width: 992px) {
     tr {

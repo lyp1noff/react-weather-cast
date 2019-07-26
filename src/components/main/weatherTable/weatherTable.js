@@ -5,6 +5,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import Firebase from "../../../configs/firebase";
 import axios from "axios";
 import Slider from '@material-ui/core/Slider';
+import Button from "react-bootstrap/Button";
 
 class WeatherTable extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class WeatherTable extends React.Component {
     this.weatherData = [];
     this.tableData = [{}];
     this.state = {
-      sliderValue: [-45, 45]
+      sliderValue: JSON.parse(sessionStorage.getItem('filterRange')) || [-45, 45]
     }
   }
 
@@ -85,6 +86,11 @@ class WeatherTable extends React.Component {
     )
   }
 
+  setFilter(value) {
+    this.setState({sliderValue: value});
+    sessionStorage.setItem('filterRange', JSON.stringify(value));
+  }
+
   render() {
     if (!this.props.DataBaseData) {
       return(
@@ -99,12 +105,21 @@ class WeatherTable extends React.Component {
           <Jumbotron>
             <Container className={"slider"}>
               <h5>Диапазон температуры <br/> (от {this.state.sliderValue[0]}°С до {this.state.sliderValue[1]}°С)</h5>
-              <Slider
-                min={-50} max={50}
-                value={this.state.sliderValue}
-                onChange={(event, newValue) => {this.setState({sliderValue: newValue});}}
-                valueLabelDisplay="auto"
-              />
+              <div className={"slider-div"}>
+                <Slider
+                  min={-50} max={50}
+                  value={this.state.sliderValue}
+                  onChange={(event, newValue) => {this.setFilter(newValue)}}
+                  valueLabelDisplay="auto"
+                  style={{paddingTop: '15px'}}
+                />
+                <Button
+                  variant="outline-secondary"
+                  size="sm"
+                  onClick={() => {this.setFilter([-45, 45])}}
+                  style={{marginLeft: '10px'}}
+                >Сбросить</Button>
+              </div>
             </Container>
             {this.renderTable()}
           </Jumbotron>
