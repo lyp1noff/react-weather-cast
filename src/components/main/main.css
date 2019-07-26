@@ -1,6 +1,32 @@
-.navbar {
-    padding: 8px 5% 8px 5%;
+img {
+    padding-bottom: 1.4%;
+    width: 15%;
+    max-width: 40px;
+    height: auto;
 }
-.mt-auto {
-    padding-top: 10%;
+p {
+    font-size: 20px;
+}
+p:first-letter {
+    text-transform:capitalize;
+}
+.loader.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.loader.weather {
+    position: relative;
+}
+@media screen and (min-width: 992px) {
+    .loader.weather {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    img {
+        padding-bottom: 0.7%;
+    }
 }

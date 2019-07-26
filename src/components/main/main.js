@@ -1,36 +1,63 @@
 import React from 'react';
-import WeatherDisplay from '../weatherDisplay/weatherDisplay'
-import './main.css'
+import './main.css';
+import {Spinner} from "react-bootstrap"
 import { Route, Switch } from "react-router-dom";
-import { Jumbotron, Container } from "react-bootstrap"
-import data from '../../assets/json/city.list'
+import WeatherDisplay from "./weatherDisplay/weatherDisplay";
+import WeatherTable from "./weatherTable/weatherTable";
+import Firebase from '../../configs/firebase';
+import Home from "./home/home";
+import Error from "./404/404";
 
 class Main extends React.Component {
-  renderRoute() {
+  constructor(props) {
+    super(props);
+    this.database = Firebase.database().ref();
+    this.state = {
+      DataBaseData: null
+    }
+  }
+
+  componentWillMount() {
+    this.database.on('value', snap => {
+      this.setState({
+        DataBaseData: snap.val()
+      })
+    });
+  }
+
+  routes() {
+    const DataBaseData = this.state.DataBaseData.cities;
     const routes = [];
-    for (const [index] of data.entries()) {
+    for (const [index] of DataBaseData.entries()) {
       routes.push(
-        <Route exact path={"/"+data[index].url} key={index} component={() => {
-          return <WeatherDisplay key={index} place={data[index]}/>}}
+        <Route exact path={"/"+DataBaseData[index].url} key={index} component={() => {
+          return (
+            <Route exact path={"/"+DataBaseData[index].url} key={index} component={() => {
+              return <WeatherDisplay key={index} city={DataBaseData[index]}/>}}
+            />
+          )}}
         />
       )
     }
-    return routes
+    return routes;
   }
 
   render() {
-    return(
-      <Container className={"mt-auto"}>
-        <Jumbotron>
-          <Container>
-            <Switch>
-              {this.renderRoute()}
-              <Route exact path={"/"} component={() => {return <h1>Прогноз погоды</h1>}}/>
-              <Route component={() => {return <h1>Город не найден</h1>}}/>
-            </Switch>
-          </Container>
-        </Jumbotron>
-      </Container>
+    if (!this.state.DataBaseData) {
+      return(
+        <div className={"loader center"}>
+          <Spinner animation="border"/>
+        </div>
+      )
+    }
+    else return(
+      <Switch>
+        <Route exact path={"/"} component={() => {return <Home/>}}/>
+        <Route exact path={"/table"} component={() => {return <WeatherTable DataBaseData={this.state.DataBaseData}/>}}/>
+        {this.routes()}
+        <Route exact component={() => {return <Error/>}}
+        />
+      </Switch>
     );
   }
 }

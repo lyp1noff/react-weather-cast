@@ -1,12 +1,28 @@
 import React from 'react';
 import './header.css'
-import { LinkContainer } from "react-router-bootstrap";
-import { Nav, Navbar, Form, FormControl, InputGroup, Button} from "react-bootstrap"
-import data from '../../assets/json/city.list'
+import {Nav, Navbar, Form, FormControl, InputGroup, Button} from "react-bootstrap"
+import Buttons from "../ui/renderButtons";
+import Firebase from '../../configs/firebase';
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.database = Firebase.database().ref("cities");
+    this.state = {
+      data: null
+    }
+  }
+  componentDidMount() {
+    this.database.on('value', snap => {
+      this.setState({
+        data: snap.val()
+      })
+    });
+  }
+
   search(city) {
-    if (city !== "") {
+    const data = this.state.data;
+    if (city && city !== "") {
       const index = data.findIndex(item => item.name.toLowerCase() === city.toLowerCase().trim());
       if (index === -1) {
         return this.props.history.push('/404')
@@ -16,32 +32,27 @@ class Header extends React.Component {
     }
   }
 
-  static renderButtons() {
-    const places = [0, 1, 2, 3, 4];
-    const buttons = [];
-    for (const [, value] of places.entries()) {
-      buttons.push(
-        <LinkContainer to={"/"+data[value].url} key={value}>
-          <Nav.Link>{data[value].name}</Nav.Link>
-        </LinkContainer>
-      )
+  handleKeyPress = (event) => {
+    if(event.key === 'Enter'){
+      event.preventDefault();
+      this.search(this.city.value);
     }
-    return buttons
-  }
+  };
 
   render() {
-    return(
+    if (!this.state.data) return null;
+    else return(
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Navbar.Brand href="/">Прогноз погоды</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            {Header.renderButtons()}
+            <Buttons data={this.state.data}/>
           </Nav>
           <Form inline>
             <InputGroup>
               <FormControl
-                onSubmit={() => (this.search())}
+                onKeyPress={this.handleKeyPress}
                 placeholder="Поиск"
                 aria-label="Search"
                 ref={(ref) => {this.city = ref}}
